@@ -3,6 +3,5 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-ENV DEBUG=1
-ENTRYPOINT [ "python" ]
-CMD ["app.py"]
+ENV DEBUG=0
+CMD ["python", "app.py"]
