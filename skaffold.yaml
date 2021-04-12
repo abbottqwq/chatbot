@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*
+  
+build:
+  local:
+    push: false
+  artifacts:
+    - image: abbottqwq/message-controller
+      context: message-controller
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.py"
+            dest: .
