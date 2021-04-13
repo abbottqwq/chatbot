@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: redis
+  template:
+    metadata:
+      labels:
+        name: redis
+        component: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          command:
+            - redis-server
+            - "/redis-master/redis.conf"
+          ports:
+            - containerPort: 6379
+          env:
+            - name: MASTER
+              value: "true"
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: 200Mi
+          volumeMounts:
+            - mountPath: "/redis-master"
+              name: "config"
+      volumes:
+        - name: config
+          configMap:
+            name: redis-configmap
+            items:
+              - key: redis-config
+                path: redis.conf
+            
+              
+          
