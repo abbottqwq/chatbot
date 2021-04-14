@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-api-deployment
+  namespace: api
+spec:
+  selector:
+    matchLabels:
+      app: chatbot-api
+  template:
+    metadata:
+      labels:
+        app: chatbot-api
+    spec:
+      containers:
+      - name: chatbot-api
+        image: abbottqwq/chatbot-api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000

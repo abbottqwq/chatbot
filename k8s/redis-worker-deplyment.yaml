@@ -21,6 +21,10 @@ spec:
             value: redis
           - name: REDIS_PORT
             value: "6379"
+          - name: TIME
+            value: "1200"
+          - name: SCOPE
+            value: "300"
         resources:
           requests:
             memory: "32Mi"

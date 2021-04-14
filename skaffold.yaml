@@ -27,4 +27,12 @@ build:
         manual:
           - src: "*.py"
             dest: .
-
+            
+    - image: abbottqwq/chatbot-api
+      context: chatbot-api
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.py"
+            dest: .

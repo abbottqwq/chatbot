@@ -1,0 +1,10 @@
+FROM python:3.9-alpine
+RUN pip install pyyaml
+RUN pip install argh
+RUN pip install watchdog
+WORKDIR /app
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+ENV DEBUG=1
+CMD ["watchmedo", "auto-restart", "-p", "*.py", "-R", "python", "--", "app.py"]
