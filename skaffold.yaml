@@ -3,17 +3,28 @@ kind: Config
 deploy:
   kubectl:
     manifests:
+      - ./namespace/*
       - ./k8s/*
   
 build:
   local:
     push: false
   artifacts:
-    - image: abbottqwq/message-controller
-      context: message-controller
+    - image: abbottqwq/chatbot-server
+      context: chatbot-server
       docker:
         dockerfile: Dockerfile.dev
       sync:
         manual:
           - src: "*.py"
             dest: .
+
+    - image: abbottqwq/redis-worker
+      context: redis-worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.py"
+            dest: .
+

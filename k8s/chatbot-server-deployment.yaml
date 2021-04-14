@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: message-controller-deployment
+  name: chatbot-server-deployment
+  namespace: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      backend: message-controller
+      backend: chatbot-server
   template:
     metadata:
       labels:
-        backend: message-controller
+        backend: chatbot-server
     spec:
       containers:
-      - name: message-controller
-        image: abbottqwq/message-controller
+      - name: server
+        image: abbottqwq/chatbot-server
         resources:
           requests:
             memory: "32Mi"
@@ -23,4 +24,4 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 80
+        - containerPort: 5000

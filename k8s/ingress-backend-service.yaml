@@ -1,7 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-service
+  name: ingress-backend-service
+  namespace: backend
+  labels:
+    rule: ingress
   annotations:
     kubernetes.io/ingress.class: 'nginx'
     nginx.ingress.kubernetes.io/use-regex: 'true'
@@ -10,10 +13,11 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/message
+          - path: /api/?(.*)
             pathType: Prefix
             backend:
               service:
-                name: message-controller-service
+                name: chatbot-server
                 port:
                   number: 5000
+          

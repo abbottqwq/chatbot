@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatbot-server
+  namespace: backend
+  labels:
+    rule: backend
+spec:
+  type: ClusterIP
+  selector:
+    backend: chatbot-server
+  ports:
+  - port: 5000
+    targetPort: 5000
+  
