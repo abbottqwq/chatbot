@@ -21,7 +21,7 @@ def getResponse() -> dict:
     logging.info("res is --------------->")
     logging.info(res)
     if not res:
-        res = requests.post(f"http://chatbot-api-service:5000",
+        res = requests.post(config.CHATBOT_API_URL,
                             json={"message": message}).json()["res"]
         state = set_to_cache(message, res, config.TIME, config.SCOPE)
         if not state:

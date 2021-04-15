@@ -17,7 +17,7 @@ def hello():
     message = request.json['message']
     if not message:
         abort(400)
-    res = requests.post("http://redis-worker-service.api:5000", json={"message":message}).json()["res"]
+    res = requests.post(config.REDIS_WORKER_URL, json={"message":message}).json()["res"]
     print(res)
     return jsonify({"res":res})
 
@@ -28,7 +28,7 @@ def test():
     print(message)
     if not message:
         abort(400)
-    res = requests.post("http://redis-worker-service.api:5000", json={"message":message}).json()["res"]
+    res = requests.post(config.REDIS_WORKER_URL, json={"message":message}).json()["res"]
     print(res)
     return jsonify({"res":res})
 
