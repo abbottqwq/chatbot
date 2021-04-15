@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta12
+apiVersion: skaffold/v2beta13
 kind: Config
 deploy:
   kubectl:
@@ -30,6 +30,15 @@ build:
             
     - image: abbottqwq/chatbot-api
       context: chatbot-api
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.py"
+            dest: .
+
+    - image: abbottqwq/mongo-worker
+      context: mongo-worker
       docker:
         dockerfile: Dockerfile.dev
       sync:

@@ -32,6 +32,17 @@ def getResponse() -> dict:
     return jsonify({"res": res})
 
 
+@app.route('/add', methods=['POST'])
+def teach_me():
+    message = request.json['message']
+    res = request.json['res']
+    state = set_to_cache(message, res, config.TIME, config.SCOPE)
+    if not state:
+        return jsonify({'err': 'REDIS_WRITE_ERROR'})
+    else:
+        return jsonify({'success': '1'})
+
+
 def set_to_cache(message: str, res: str, time: int, scope: int):
     state = redis_client.setex(message, timedelta(
         seconds=random_time(time, scope)), res)
