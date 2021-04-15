@@ -36,8 +36,11 @@ def getResponse() -> dict:
 def teach_me():
     message = request.json['message']
     res = request.json['res']
+    logging.warning(message)
+    logging.warning(res)
     state = set_to_cache(message, res, config.TIME, config.SCOPE)
-    if not state:
+    logging.warning(state)
+    if state==False:
         return jsonify({'err': 'REDIS_WRITE_ERROR'})
     else:
         return jsonify({'success': '1'})
