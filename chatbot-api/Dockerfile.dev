@@ -1,4 +1,6 @@
-FROM python:3.9-alpine
+FROM python:3.8
+RUN pip install numpy
+RUN pip install tensorflow
 RUN pip install pyyaml
 RUN pip install argh
 RUN pip install watchdog

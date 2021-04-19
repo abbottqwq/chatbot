@@ -15,9 +15,5 @@ spec:
       containers:
       - name: chatbot-api
         image: abbottqwq/chatbot-api
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 5000
