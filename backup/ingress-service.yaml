@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  namespace: server
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # UPDATE THIS LINE ABOVE
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /?(.*)
+            # UPDATE THIS LINE ABOVE
+            backend:
+              serviceName: chatbot-client
+              servicePort: 3000
+          - path: /api/?(.*)
+            # UPDATE THIS LINE ABOVE
+            backend:
+              serviceName: chatbot-serve
+              servicePort: 5000

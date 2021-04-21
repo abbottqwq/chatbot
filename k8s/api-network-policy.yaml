@@ -13,9 +13,9 @@ spec:
       - namespaceSelector:
           matchLabels:
             purpose: api
-      - namespaceSelector:
+      - podSelector:
           matchLabels:
-            purpose: backend
+            rule: backend
       - podSelector:
           matchLabels:
             rule: database

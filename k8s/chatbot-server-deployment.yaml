@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: chatbot-server-deployment
-  namespace: backend
+  namespace: server
 spec:
   replicas: 1
   selector:

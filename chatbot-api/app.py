@@ -10,20 +10,21 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, Dense, Flatten, Conv1D, MaxPooling1D, Input, LSTM
 from keras.models import Model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import logging
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def getResponse():
-    message = request.json['message']
+    message = request.get_json()['message']
     if not message:
         abort(400)
-    return jsonify(res= pred(message))
+    return jsonify(res=pred(message))
+
 
 with open('word_index.txt', 'r') as f:
     word_index = json.load(f)
-
 
 
 HIDDEN_DIM = config.HIDDEN_DIM
@@ -49,13 +50,14 @@ dec_state_input_h = Input(shape=(HIDDEN_DIM,))
 dec_state_input_c = Input(shape=(HIDDEN_DIM,))
 dec_states_inputs = [dec_state_input_h, dec_state_input_c]
 dec_outputs, state_h, state_c = dec_lstm(dec_embedding,
-                                            initial_state=dec_states_inputs)
+                                         initial_state=dec_states_inputs)
 dec_states = [state_h, state_c]
 dec_outputs = dec_dense(dec_outputs)
 dec_model = Model(
     inputs=[dec_inputs] + dec_states_inputs,
     outputs=[dec_outputs] + dec_states)
 enc_model = Model(inputs=enc_inputs, outputs=enc_states)
+
 
 def str_to_tokens(sentence: str):
     words = sentence.lower().split()
@@ -68,7 +70,8 @@ def str_to_tokens(sentence: str):
                          maxlen=maxlen_questions,
                          padding='post')
 
-def pred(message: str)->str:
+
+def pred(message: str) -> str:
     states_values = enc_model.predict(str_to_tokens(message))
     empty_target_seq = np.zeros((1, 1))
     empty_target_seq[0, 0] = word_index['start']
@@ -93,7 +96,8 @@ def pred(message: str)->str:
         empty_target_seq = np.zeros((1, 1))
         empty_target_seq[0, 0] = sampled_word_index
         states_values = [h, c]
-        return decoded_translation
+    logging.warning(decoded_translation)
+    return decoded_translation
 # print(pred('hello'))
 # for _ in tf.range(10):
 #     pred(input())
@@ -101,4 +105,3 @@ def pred(message: str)->str:
 
 if __name__ == '__main__':
     app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)
-

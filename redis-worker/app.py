@@ -12,14 +12,16 @@ redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT)
 
 
 @app.route('/', methods=['POST'])
-def getResponse() -> dict:
-    message = request.json['message']
+def getResponse():
+    logging.warning(request.get_json())
+    message = request.get_json()['message']
+    logging.warning(message)
     print(message)
     if not message:
         abort(400)
     res = get_from_cache(message)
-    logging.info("res is --------------->")
-    logging.info(res)
+    logging.warning("res is --------------->")
+    logging.warning(res)
     if not res:
         res = requests.post(config.CHATBOT_API_URL,
                             json={"message": message}).json()["res"]
@@ -34,7 +36,7 @@ def getResponse() -> dict:
 
 @app.route('/add', methods=['POST'])
 def teach_me():
-    message = request.json['message']
+    message = request.get_json()['message']
     res = request.json['res']
     logging.warning(message)
     logging.warning(res)

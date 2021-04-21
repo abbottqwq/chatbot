@@ -17,7 +17,8 @@ def debug_only(f):
 
 @app.route('/message', methods=['POST'])
 def hello():
-    message = request.json['message']
+    logging.warning(request.get_json())
+    message = request.get_json()['message']
     if not message:
         abort(400)
     res = requests.post(config.REDIS_WORKER_URL, json={
@@ -41,8 +42,8 @@ def test_message():
 
 @app.route('/teachme', methods=['POST'])
 def teachme():
-    message = request.json['message']
-    res = request.json['res']
+    message = request.get_json()['message']
+    res = request.get_json()['res']
     if not message or not res:
         abort(400)
     res = requests.post(config.MONGO_WORKER_URL, json={

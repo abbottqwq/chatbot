@@ -11,13 +11,15 @@ db = mongo_client.db
 
 @app.route('/', methods=['POST'])
 def teach_me():
-    message = request.json['message']
+    message = request.get_json()['message']
     res = request.json['res']
     err = {}
     if not add_to_db(message, res):
         err['mongo_error'] = 1
+        err['error'] = 1
     if not add_to_redis(message, res):
         err['redis_error'] = 1
+        err["error"] = 1
     return json.dumps(err)
 
 

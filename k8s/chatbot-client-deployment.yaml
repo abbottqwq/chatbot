@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-client-deployment
+  namespace: server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      frontend: chatbot-client
+  template:
+    metadata:
+      labels:
+        frontend: chatbot-client
+    spec:
+      containers:
+        - name: client
+          image: abbottqwq/chatbot-client
+          ports:
+            - containerPort: 3000

@@ -45,3 +45,16 @@ build:
         manual:
           - src: "*.py"
             dest: .
+
+    - image: abbottqwq/chatbot-client
+      context: chatbot-client
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+          - src: "src/**/*.css"
+            dest: .
+          - src: "src/**/*.html"
+            dest: .
