@@ -20,6 +20,8 @@ def teach_me():
     if not add_to_redis(message, res):
         err['redis_error'] = 1
         err["error"] = 1
+    if not err:
+        return json.dumps({"success": 1})
     return json.dumps(err)
 
 
