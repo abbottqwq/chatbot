@@ -3,11 +3,8 @@ import config
 import requests
 import numpy as np
 import tensorflow as tf
-import json
 from tensorflow import keras
-from tensorflow.keras.utils import plot_model
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Embedding, Dense, Flatten, Conv1D, MaxPooling1D, Input, LSTM
+import json
 from keras.models import Model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import logging
@@ -23,40 +20,26 @@ def getResponse():
     return jsonify(res=pred(message))
 
 
-with open('word_index.txt', 'r') as f:
+with open('word_index.json', 'r') as f:
     word_index = json.load(f)
 
 
-HIDDEN_DIM = config.HIDDEN_DIM
-VOCAB_SIZE = config.VOCAB_SIZE
-maxlen_answers = config.MAXLEN_ANSWERS
-maxlen_questions = config.MAXLEN_QUESTIONS
-enc_inputs = Input(shape=(None,))
-enc_embedding = Embedding(VOCAB_SIZE, HIDDEN_DIM, mask_zero=True)(enc_inputs)
-_, state_h, state_c = LSTM(HIDDEN_DIM, return_state=True)(enc_embedding)
-enc_states = [state_h, state_c]
-
-dec_inputs = Input(shape=(None,))
-dec_embedding = Embedding(VOCAB_SIZE, HIDDEN_DIM, mask_zero=True)(dec_inputs)
-dec_lstm = LSTM(HIDDEN_DIM, return_state=True, return_sequences=True)
-dec_outputs, _, _ = dec_lstm(dec_embedding, initial_state=enc_states)
-dec_dense = Dense(VOCAB_SIZE, activation=tf.keras.layers.Softmax())
-output = dec_dense(dec_outputs)
-
-model = keras.models.load_model('my_model')
+j = {}
+with open("parameters.json",'r') as f:
+  j = json.load(f)
+jj = json.loads(j)
+print(jj)
+VOCAB_SIZE = jj['VOCAB_SIZE']
+HIDDEN_DIM = jj['HIDDEN_DIM']
+maxlen_questions = jj['maxlen_questions']
+maxlen_answers = jj['maxlen_answers']
+with open('word_index.json', 'r') as f:
+  word_index = json.load(f)
+model = keras.models.load_model('model', compile=False)
+enc_model = keras.models.load_model('enc_model', compile=False)
+dec_model = keras.models.load_model('dec_model', compile=False)
 
 
-dec_state_input_h = Input(shape=(HIDDEN_DIM,))
-dec_state_input_c = Input(shape=(HIDDEN_DIM,))
-dec_states_inputs = [dec_state_input_h, dec_state_input_c]
-dec_outputs, state_h, state_c = dec_lstm(dec_embedding,
-                                         initial_state=dec_states_inputs)
-dec_states = [state_h, state_c]
-dec_outputs = dec_dense(dec_outputs)
-dec_model = Model(
-    inputs=[dec_inputs] + dec_states_inputs,
-    outputs=[dec_outputs] + dec_states)
-enc_model = Model(inputs=enc_inputs, outputs=enc_states)
 
 
 def str_to_tokens(sentence: str):
@@ -96,11 +79,15 @@ def pred(message: str) -> str:
         empty_target_seq = np.zeros((1, 1))
         empty_target_seq[0, 0] = sampled_word_index
         states_values = [h, c]
-    logging.warning(decoded_translation)
+    # logging.warning(decoded_translation)
+    # print(len(decoded_translation))
+    if len(decoded_translation) == 0:
+        decoded_translation = "Sorry, I can't understand it"
     return decoded_translation
+    
 # print(pred('hello'))
 # for _ in tf.range(10):
-#     pred(input())
+#     print(pred(input()))
 
 
 if __name__ == '__main__':

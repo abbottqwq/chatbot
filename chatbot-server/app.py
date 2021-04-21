@@ -47,7 +47,7 @@ def teachme():
     if not message or not res:
         abort(400)
     res = requests.post(config.MONGO_WORKER_URL, json={
-                        "message": message, "res": res})
+                        "message": message, "res": res}).json()
     logging.warning(res)
     return res
 
@@ -62,6 +62,7 @@ def teachme_test():
         abort(400)
     res = requests.post(config.MONGO_WORKER_URL, json={
                         "message": message, "res": res}).json()
+    
     logging.warning(res)
     return res
 
