@@ -14,7 +14,7 @@ spec:
         frontend: chatbot-client
     spec:
       containers:
-        - name: client
+        - name: chatbot-client
           image: abbottqwq/chatbot-client
           ports:
             - containerPort: 3000
