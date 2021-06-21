@@ -25,6 +25,7 @@ def getResponse():
     if not res:
         res = requests.post(config.CHATBOT_API_URL,
                             json={"message": message}).json()["res"]
+        logging.warning(res)
         state = set_to_cache(message, res, config.TIME, config.SCOPE)
         if not state:
             return jsonify({"res": res, "error": "REDIS_WRITE_ERROR"})

@@ -1,1 +1,1 @@
-"{\"VOCAB_SIZE\": 12897, \"HIDDEN_DIM\": 300, \"maxlen_questions\": 34, \"maxlen_answers\": 32}"
+"{\"VOCAB_SIZE\": 6279, \"HIDDEN_DIM\": 300, \"maxlen_questions\": 56, \"maxlen_answers\": 54}"
