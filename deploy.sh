@@ -22,6 +22,7 @@ docker push abbottqwq/redis-worker:$SHA
 kubectl apply -f namespace
 kubectl apply -f k8s
 
+
 kubectl set image deployments/chatbot-api-deployment chatbot-api=abbottqwq/chatbot-api:lastest
 kubectl set image deployments/chatbot-client-deployment chatbot-api=abbottqwq/chatbot-client:lastest
 kubectl set image deployments/chatbot-server-deployment chatbot-api=abbottqwq/chatbot-server:lastest
