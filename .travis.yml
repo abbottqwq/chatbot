@@ -16,9 +16,7 @@ before_install:
   - gcloud config set project logical-hallway-317905
   - gcloud config set compute/zone us-east1-b 
 
-
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
-
 
 deploy:
   provider: script
