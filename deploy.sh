@@ -1,4 +1,5 @@
 docker build -t abbottqwq/chatbot-api:lastest -t abbottqwq/chatbot-api:$SHA -f ./chatbot-api/Dockerfile ./chatbot-api
+# docker build -t abbottqwq/chatbot-client:lastest -t abbottqwq/chatbot-client:$SHA -f ./chatbot-client/Dockerfile ./chatbot-client
 docker build -t abbottqwq/chatbot-client:lastest -t abbottqwq/chatbot-client:$SHA -f ./chatbot-client/Dockerfile ./chatbot-client
 docker build -t abbottqwq/chatbot-server:lastest -t abbottqwq/chatbot-server:$SHA -f ./chatbot-server/Dockerfile ./chatbot-server
 
