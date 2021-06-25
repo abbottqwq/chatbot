@@ -3,7 +3,7 @@ docker build -t abbottqwq/chatbot-client:lastest -t abbottqwq/chatbot-client:$SH
 docker build -t abbottqwq/chatbot-server:lastest -t abbottqwq/chatbot-server:$SHA -f ./chatbot-server/Dockerfile ./chatbot-server
 
 docker build -t abbottqwq/mongo-worker:lastest -t abbottqwq/mongo-worker:$SHA -f ./mongo-worker/Dockerfile ./mongo-worker
-docker build -t abbottqwq/redis-worker:lastest -t abbottqwq/redis-worker:$SHA -f ./redis-worker/Dockerfile .redis-worker/
+docker build -t abbottqwq/redis-worker:lastest -t abbottqwq/redis-worker:$SHA -f ./redis-worker/Dockerfile ./redis-worker
 
 docker push abbottqwq/chatbot-api:lastest
 docker push abbottqwq/chatbot-client:lastest
