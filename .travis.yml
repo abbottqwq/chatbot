@@ -13,7 +13,7 @@ before_install:
   - gcloud components update kubectl
 
   - gcloud auth activate-service-account --key-file service-account.json
-  - gcloud config set project logical-hallway-317905
+  - gcloud config set project $PROJECT_ID
   - gcloud config set compute/zone us-east1-b 
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
