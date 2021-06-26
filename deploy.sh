@@ -27,7 +27,7 @@ kubectl apply -f k8s
 
 
 kubectl set image deployments/chatbot-api-deployment chatbot-api=abbottqwq/chatbot-api:latest
-kubectl set image deployments/chatbot-client-deployment chatbot-api=abbottqwq/chatbot-client:latest
-kubectl set image deployments/chatbot-server-deployment chatbot-api=abbottqwq/chatbot-server:latest
-kubectl set image deployments/redis-worker-deployment chatbot-api=abbottqwq/rediskubectl set image deployments/redis-worker:latest
-kubectl set image deployments/mongo-worker-deployment chatbot-api=abbottqwq/mongo-worker:latest
+kubectl set image deployments/chatbot-client-deployment chatbot-client=abbottqwq/chatbot-client:latest
+kubectl set image deployments/chatbot-server-deployment chatbot-server=abbottqwq/chatbot-server:latest
+kubectl set image deployments/redis-worker-deployment redis-worker=abbottqwq/redis-worker:latest
+kubectl set image deployments/mongo-worker-deployment mongo-worker=abbottqwq/mongo-worker:latest
