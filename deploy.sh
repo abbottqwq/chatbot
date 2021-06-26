@@ -1,5 +1,3 @@
-PWD
-ls
 docker build -t abbottqwq/chatbot-client:latest -t abbottqwq/chatbot-client:$SHA -f ./chatbot-client/Dockerfile ./chatbot-client
 docker build -t abbottqwq/chatbot-api:latest -t abbottqwq/chatbot-api:$SHA -f ./chatbot-api/Dockerfile ./chatbot-api
 # docker build -t abbottqwq/chatbot-client:latest -t abbottqwq/chatbot-client:$SHA -f ./chatbot-client/Dockerfile ./chatbot-client
@@ -15,7 +13,7 @@ docker push abbottqwq/chatbot-server:latest
 docker push abbottqwq/mongo-worker:latest
 docker push abbottqwq/redis-worker:latest
 
-docker push abbottqwq/chatbot-api:$SHA
+docker push abbottqwq/chatbot-aapi:$SHA
 docker push abbottqwq/chatbot-client:$SHA
 docker push abbottqwq/chatbot-server:$SHA
 
