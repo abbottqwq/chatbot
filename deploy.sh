@@ -20,12 +20,13 @@ docker push abbottqwq/chatbot-server:$SHA
 docker push abbottqwq/mongo-worker:$SHA
 docker push abbottqwq/redis-worker:$SHA
 
-kubectl apply -f namespace
-kubectl apply -f k8s
+kubectl apply -f ./namespace
+kubectl apply -f ./k8s
 
+echo "update image"
 
-kubectl set image deployments/chatbot-api-deployment chatbot-api=abbottqwq/chatbot-api:latest
-kubectl set image deployments/chatbot-client-deployment chatbot-client=abbottqwq/chatbot-client:latest
-kubectl set image deployments/chatbot-server-deployment chatbot-server=abbottqwq/chatbot-server:latest
-kubectl set image deployments/redis-worker-deployment redis-worker=abbottqwq/redis-worker:latest
-kubectl set image deployments/mongo-worker-deployment mongo-worker=abbottqwq/mongo-worker:latest
+kubectl set image deployments/chatbot-api-deployment chatbot-api=abbottqwq/chatbot-api:$SHA -n api
+kubectl set image deployments/chatbot-client-deployment chatbot-client=abbottqwq/chatbot-client:$SHA -n server
+kubectl set image deployments/chatbot-server-deployment chatbot-server=abbottqwq/chatbot-server:$SHA -n server
+kubectl set image deployments/redis-worker-deployment redis-worker=abbottqwq/redis-worker:$SHA -n api
+kubectl set image deployments/mongo-worker-deployment mongo-worker=abbottqwq/mongo-worker:$SHA -n api
