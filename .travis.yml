@@ -16,11 +16,14 @@ before_install:
 
 
 # 
-before_script:
+install:
   - minikube start 
   - minikube addons enable ingress
   - skaffold run
+
+before_script:
   - kubectl get pods --all-namespaces
+
 script:
   - "0"
 
