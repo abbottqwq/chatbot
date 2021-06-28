@@ -8,25 +8,36 @@ env:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 before_install:
+  
+  
+  - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
+  - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+
+# 
+before_script:
+  - minikube start 
+  - minikube addons enable ingress
+  - skaffold run
+script:
+  - "0"
+
+after_script:
+  - minikube delete
+
+before_deploy:
   - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
-  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - curl httpEs://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
 
   - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project $PROJECT_ID
   - gcloud config set compute/zone us-east1-b 
-  - gcloud container clusters get-credentials $CLUSTER_NAME
+  - gcloud container clusters get-credentials $CLUSTER_NAM
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
-  - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
-  
 
-# 
-before_script:
-  - skaffold run
-script:
-  - "0"
 
 deploy:
   provider: script
