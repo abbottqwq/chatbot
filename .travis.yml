@@ -1,4 +1,6 @@
-language: generic
+language: python
+python:
+  3.8
 sudo: required
 services:
   - docker
@@ -17,12 +19,14 @@ install:
   - minikube start 
   - minikube addons enable ingress
   - skaffold run
+  - pip install -r ./test_script/requirements.txt
 
 before_script:
   - kubectl get pods --all-namespaces
+  - export MINIKUBE_IP=$(minikube ip)
 
 script:
-  - "0"
+  - python ./test_script/test.py
 
 after_script:
   - skaffold delete
@@ -40,6 +44,7 @@ before_deploy:
   - gcloud container clusters get-credentials $CLUSTER_NAM
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
+  
 
 
 deploy:

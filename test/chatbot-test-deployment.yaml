@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-test-deployment
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      test: chatbot-test
+  template:
+    metadata:
+      labels:
+        test: chatbot-test
+    spec:
+      containers:
+      - name: chatbot-test
+        image: abbottqwq/chatbot-test
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000

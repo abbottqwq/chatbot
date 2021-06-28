@@ -19,5 +19,8 @@ spec:
       - podSelector:
           matchLabels:
             rule: database
+      - podSelector:
+          matchLabels:
+            rule: test
   egress:
     - {}

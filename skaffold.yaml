@@ -5,6 +5,7 @@ deploy:
     manifests:
       - ./namespace/*
       - ./k8s/*
+      - ./test/*
   
 build:
   local:
@@ -39,6 +40,15 @@ build:
 
     - image: abbottqwq/mongo-worker
       context: mongo-worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.py"
+            dest: .
+
+    - image: abbottqwq/chatbot-test
+      context: chatbot-test
       docker:
         dockerfile: Dockerfile.dev
       sync:
