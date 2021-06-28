@@ -6,4 +6,3 @@ VOCAB_SIZE = int(os.environ.get('VOCAB_SIZE', '12897'))
 HIDDEN_DIM = int(os.environ.get('HIDDEN_DIM', '300'))
 MAXLEN_ANSWERS = int(os.environ.get('MAXLEN_ANSWERS', '32'))
 MAXLEN_QUESTIONS = int(os.environ.get('MAXLEN_QUESTIONS', '34'))
-
