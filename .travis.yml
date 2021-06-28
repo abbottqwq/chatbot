@@ -10,6 +10,7 @@ env:
 before_install:
   
   - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  - kubectl version --client
   - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
   - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
@@ -19,10 +20,12 @@ before_script:
   - minikube start 
   - minikube addons enable ingress
   - skaffold run
+  - kubectl get pods --all-namespaces
 script:
   - "0"
 
 after_script:
+  - skaffold delete
   - minikube delete
 
 before_deploy:
