@@ -22,7 +22,7 @@ def is_redis_available(r):
 
 @app.route('/test_connection', methods=['GET', 'POST'])
 def test():
-    return jsonify({'error':1})
+    # return jsonify({'error':1})
     if is_redis_available(redis_client):
         return jsonify({'success':1})
     else:
