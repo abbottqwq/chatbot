@@ -16,7 +16,7 @@ import logging
 with open('word_index.json', 'r') as f:
     word_index = json.load(f)
 
-
+logging.warning(tf.__version__)
 j = {}
 with open("parameters.json", 'r') as f:
     j = json.load(f)
