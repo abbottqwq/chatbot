@@ -24,7 +24,7 @@ before_install:
 
 # 
 script:
-  - skaffold dev
+  - skaffold run
 
 deploy:
   provider: script
