@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def getResponse():
     message = request.get_json()['message']
-    logging.warning("message is " + message)
+    logging.info("message is " + message)
     if not message:
         abort(400)
     logging.warning('before predict')
