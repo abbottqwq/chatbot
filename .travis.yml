@@ -19,6 +19,8 @@ before_install:
   - gcloud container clusters get-credentials $CLUSTER_NAME
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
+  - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
+  
 
 # 
 script:
