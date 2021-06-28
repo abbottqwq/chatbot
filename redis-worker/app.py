@@ -10,6 +10,22 @@ app = Flask(__name__)
 
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT)
 
+def is_redis_available(r):
+    try:
+        r.ping()
+        logging.info("Redis connected")
+    except (redis.exceptions.ConnectionError, ConnectionRefusedError, redis.exceptions.BusyLoadingError):
+        logging.error("Redis connection error")
+        return False
+    return True
+
+
+@app.route('/test_connection', methods=['GET', 'POST'])
+def test():
+    if is_redis_available(redis_client):
+        return jsonify({'success':1})
+    else:
+        return jsonify({'error':1})
 
 @app.route('/', methods=['POST'])
 def getResponse():
@@ -20,8 +36,7 @@ def getResponse():
     if not message:
         abort(400)
     res = get_from_cache(message)
-    logging.warning("res is --------------->")
-    logging.warning(res)
+    logging.info("res is " + res)
     if not res:
         res = requests.post(config.CHATBOT_API_URL,
                             json={"message": message}).json()["res"]

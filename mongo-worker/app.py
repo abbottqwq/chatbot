@@ -4,10 +4,26 @@ import config
 import requests
 import json
 import logging
+from pymongo.errors import ConnectionFailure
 app = Flask(__name__)
 mongo_client = pymongo.MongoClient(config.MONGO_HOST, config.MONGO_PORT)
 db = mongo_client.db
 
+def is_mongo_avaliable(m):
+    try:
+        m.admin.command('ismaster')
+        logging.info("mongodb connected")
+        return True
+    except ConnectionFailure:
+        logging.error("mongo connection error")
+        return False
+
+@app.route('/test_connection', methods=['GET', 'POST'])
+def test():
+    if is_mongo_avaliable(mongo_client):
+        return jsonify({'success':1})
+    else:
+        return jsonify({'error':1})
 
 @app.route('/', methods=['POST'])
 def teach_me():

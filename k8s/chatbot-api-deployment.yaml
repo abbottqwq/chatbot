@@ -17,3 +17,4 @@ spec:
         image: abbottqwq/chatbot-api
         ports:
         - containerPort: 5000
+        
