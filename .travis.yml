@@ -23,8 +23,10 @@ before_install:
   
 
 # 
-script:
+before_script:
   - skaffold run
+script:
+  - "0"
 
 deploy:
   provider: script
