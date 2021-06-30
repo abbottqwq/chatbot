@@ -4,7 +4,7 @@ metadata:
   name: chatbot-server-deployment
   namespace: server
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       backend: chatbot-server
