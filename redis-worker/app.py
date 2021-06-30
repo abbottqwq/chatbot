@@ -37,7 +37,7 @@ def getResponse():
     if not message:
         abort(400)
     res = get_from_cache(message)
-    logging.info("res is " + res)
+    # logging.info("res is " + res)
     if not res:
         res = requests.post(config.CHATBOT_API_URL,
                             json={"message": message}).json()["res"]
