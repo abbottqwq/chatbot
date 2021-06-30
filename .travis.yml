@@ -23,6 +23,7 @@ install:
 
 before_script:
   - kubectl get pods --all-namespaces
+  - kubectl describe nodes
   - export MINIKUBE_IP=$(minikube ip)
 
 script:

@@ -17,9 +17,11 @@ spec:
       - name: chatbot-test
         image: abbottqwq/chatbot-test
         resources:
-        
-          limits:
+          requests:
             memory: "32Mi"
             cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
         ports:
         - containerPort: 5000
