@@ -4,6 +4,7 @@ metadata:
   name: chatbot-api-deployment
   namespace: api
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: chatbot-api
@@ -17,4 +18,12 @@ spec:
         image: abbottqwq/chatbot-api
         ports:
         - containerPort: 5000
+
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "300m"
+          limits:
+            memory: "1000Mi"
+            cpu: "600m"
         

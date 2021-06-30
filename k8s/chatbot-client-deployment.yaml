@@ -4,7 +4,7 @@ metadata:
   name: chatbot-client-deployment
   namespace: server
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       frontend: chatbot-client
@@ -18,3 +18,10 @@ spec:
           image: abbottqwq/chatbot-client
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
