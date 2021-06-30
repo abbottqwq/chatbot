@@ -17,9 +17,12 @@ spec:
       - name: mongo-worker
         image: abbottqwq/mongo-worker
         resources:
+          requests:
+              memory: "32Mi"
+              cpu: "50m"
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "100m"
         ports:
         - containerPort: 27017
         env:

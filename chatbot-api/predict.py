@@ -14,7 +14,7 @@ from nltk.corpus import stopwords
 import re
 import nltk
 import logging
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 with open('word_index.json', 'r') as f:
     word_index = json.load(f)
 
