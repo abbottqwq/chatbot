@@ -16,7 +16,7 @@ before_install:
   - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 install:
-  - minikube start --cpus 2 --memory 8192
+  - minikube start --cpus 2 --memory 7000
   - minikube addons enable ingress
   - skaffold run
   - pip install -r ./test_script/requirements.txt
