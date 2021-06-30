@@ -28,7 +28,8 @@ spec:
           resources:
             limits:
               cpu: "0.1"
-              memory: 200Mi
+              memory: 500Mi
+              
           volumeMounts:
             - mountPath: "/redis-master"
               name: "config"

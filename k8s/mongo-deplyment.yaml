@@ -23,6 +23,10 @@ spec:
             - name: storage
               mountPath: /data/db
               subPath: mongo
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: 500Mi
       volumes:
         - name: storage
           persistentVolumeClaim:
