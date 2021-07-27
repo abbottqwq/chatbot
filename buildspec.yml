@@ -1,10 +1,13 @@
 version: 0.2
 env:
-  ID:
+  SHA:
     SHA=$(git rev-parse HEAD)
 phases:
   install:
     commands:
+      - echo $SHA
+      - apt-get update
+      - apt-get -y install sudo
       - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       - kubectl version --client
       - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
