@@ -4,6 +4,8 @@ env:
     SHA=$CODEBUILD_RESOLVED_SOURCE_VERSION
 phases:
   install:
+    runtime-version:
+      python: latest
     commands:
       - echo $SHA
       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
