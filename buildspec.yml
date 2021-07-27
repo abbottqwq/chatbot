@@ -16,7 +16,7 @@ phases:
       - chmod +x ./kubectl
       - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
       - echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
-      - source ~/.bashr
+      - source ~/.bashrc
       - kubectl version --client
       # - apt install conntrack
       # - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
