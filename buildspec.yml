@@ -1,11 +1,12 @@
 version: 0.2
 env:
   SHA:
-    SHA=$(git rev-parse HEAD)
+    SHA=$CODEBUILD_RESOLVED_SOURCE_VERSION
 phases:
   install:
     commands:
       - echo $SHA
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       - apt-get update
       - apt-get -y install sudo
       - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -14,7 +15,7 @@ phases:
       - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube
   pre_build:
     commands:
-      - minikube start --cpus 2 --memory 7000
+      - minikube start --cpus 2 --memory 3000
       - minikube addons enable ingress
       - skaffold run
       - pip install -r ./test_script/requirements.txt
