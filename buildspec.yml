@@ -4,18 +4,22 @@ env:
     SHA=$(git rev-parse HEAD)
 phases:
   install:
-    - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-    - kubectl version --client
-    - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
-    - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube
+    command:
+      - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      - kubectl version --client
+      - curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
+      - curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube
   pre_build:
-    - kubectl get pods --all-namespaces
-    - kubectl describe nodes
-    - export MINIKUBE_IP=$(minikube ip)
+    command:
+      - kubectl get pods --all-namespaces
+      - kubectl describe nodes
+      - export MINIKUBE_IP=$(minikube ip)
 
   build:
-    - python ./test_script/test.py
+    command:
+      - python ./test_script/test.py
 
   post_build:
-    - skaffold delete
-    - minikube delete
+    command:
+      - skaffold delete
+      - minikube delete
